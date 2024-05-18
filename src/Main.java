@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         while (true) {
-            System.out.println("1 - Cadastrar um novo paciente");
+            System.out.println("\n1 - Cadastrar um novo paciente");
             System.out.println("2 - Listar todos os pacientes");
             System.out.println("3 - Alterar informações do paciente");
             System.out.println("4 - Mostrar informações de um paciente");
@@ -16,7 +16,7 @@ public class Main {
             System.out.println("6 - Remover paciente");
             System.out.println("7 - Sair");
             System.out.println("Escolha uma opção:");
-            int opcao = Integer.parseInt(scanner.nextLine());
+            int opcao = readInt();
             switch (opcao) {
                 case 1:
                     cadastrarPaciente();
@@ -37,10 +37,10 @@ public class Main {
                     removerPaciente();
                     break;
                 case 7:
-                    System.out.println("Saindo do programa...");
+                    System.out.println("\nSaindo do programa...");
                     break;
                 default:
-                    System.out.println("Opção inválida");
+                    System.out.println("\nOpção inválida");
             }
             if (opcao == 7) {
                 break;
@@ -50,18 +50,18 @@ public class Main {
 
     private static void cadastrarPaciente() {
         Paciente paciente = new Paciente();
-        System.out.println("Digite o nome do paciente:");
+        System.out.println("\nDigite o nome do paciente:");
         paciente.setNome(scanner.nextLine());
         System.out.println("Digite a idade do paciente:");
-        paciente.setIdade(Integer.parseInt(scanner.nextLine()));
+        paciente.setIdade(readInt());
         System.out.println("Digite o peso do paciente:");
-        paciente.setPeso(Double.parseDouble(scanner.nextLine()));
+        paciente.setPeso(readDouble());
         System.out.println("Digite a altura do paciente:");
-        paciente.setAltura(Double.parseDouble(scanner.nextLine()));
+        paciente.setAltura(readDouble());
         System.out.println("Digite a pressão arterial do paciente:");
-        paciente.setPressaoArterial(Double.parseDouble(scanner.nextLine()));
+        paciente.setPressaoArterial(readDouble());
         System.out.println("Digite a frequência cardíaca do paciente:");
-        paciente.setFrequenciaCardiaca(Double.parseDouble(scanner.nextLine()));
+        paciente.setFrequenciaCardiaca(readDouble());
         System.out.println("Digite a dieta alimentar do paciente:");
         paciente.setDietaAlimentar(scanner.nextLine());
         RepositorioPaciente.adicionar(paciente);
@@ -71,46 +71,72 @@ public class Main {
         List<Paciente> pacientes = RepositorioPaciente.listar();
         for (int i = 0; i < pacientes.size(); i++) {
             Paciente p = pacientes.get(i);
-            System.out.println("ID: " + i + ", Nome: " + p.getNome());
+            System.out.println("\nID: " + i + ", Nome: " + p.getNome());
         }
     }
 
     private static void alterarPaciente() {
-        System.out.println("Digite o id do paciente que deseja alterar:");
-        int idAlterar = Integer.parseInt(scanner.nextLine());
+        System.out.println("\nDigite o id do paciente que deseja alterar:");
+        int idAlterar = readInt();
         Paciente pacienteAlterar = RepositorioPaciente.buscarPorId(idAlterar);
-        System.out.println("Digite o novo peso do paciente:");
-        pacienteAlterar.setPeso(Double.parseDouble(scanner.nextLine()));
-        System.out.println("Digite a nova altura do paciente:");
-        pacienteAlterar.setAltura(Double.parseDouble(scanner.nextLine()));
-        System.out.println("Digite a nova pressão arterial do paciente:");
-        pacienteAlterar.setPressaoArterial(Double.parseDouble(scanner.nextLine()));
-        System.out.println("Digite a nova frequência cardíaca do paciente:");
-        pacienteAlterar.setFrequenciaCardiaca(Double.parseDouble(scanner.nextLine()));
-        System.out.println("Digite a nova dieta alimentar do paciente:");
-        pacienteAlterar.setDietaAlimentar(scanner.nextLine());
-        RepositorioPaciente.alterar(idAlterar, pacienteAlterar);
+        if (pacienteAlterar != null) {
+            System.out.println("Digite o novo peso do paciente:");
+            pacienteAlterar.setPeso(readDouble());
+            System.out.println("Digite a nova altura do paciente:");
+            pacienteAlterar.setAltura(readDouble());
+            System.out.println("Digite a nova pressão arterial do paciente:");
+            pacienteAlterar.setPressaoArterial(readDouble());
+            System.out.println("Digite a nova frequência cardíaca do paciente:");
+            pacienteAlterar.setFrequenciaCardiaca(readDouble());
+            System.out.println("Digite a nova dieta alimentar do paciente:");
+            pacienteAlterar.setDietaAlimentar(scanner.nextLine());
+            RepositorioPaciente.alterar(idAlterar, pacienteAlterar);
+        }
     }
 
     private static void mostrarPaciente() {
-        System.out.println("Digite o id do paciente que deseja visualizar:");
-        int idVisualizar = Integer.parseInt(scanner.nextLine());
+        System.out.println("\nDigite o id do paciente que deseja visualizar:");
+        int idVisualizar = readInt();
         Paciente pacienteVisualizar = RepositorioPaciente.buscarPorId(idVisualizar);
-        System.out.println(pacienteVisualizar.monitoramentoPaciente());
+        if (pacienteVisualizar != null) {
+            System.out.println(pacienteVisualizar.monitoramentoPaciente());
+        }
     }
 
     private static void registrarAtividadeFisica() {
-        System.out.println("Digite o id do paciente que deseja registrar uma atividade física:");
-        int idAtividade = Integer.parseInt(scanner.nextLine());
+        System.out.println("\nDigite o id do paciente que deseja registrar uma atividade física:");
+        int idAtividade = readInt();
         Paciente pacienteAtividade = RepositorioPaciente.buscarPorId(idAtividade);
-        System.out.println("Digite a atividade física:");
-        String atividade = scanner.nextLine();
-        pacienteAtividade.registrarAtividadeFisica(atividade);
+        if (pacienteAtividade != null) {
+            System.out.println("Digite a atividade física:");
+            String atividade = scanner.nextLine();
+            pacienteAtividade.registrarAtividadeFisica(atividade);
+        }
     }
 
     private static void removerPaciente() {
-        System.out.println("Digite o id do paciente que deseja remover:");
-        int idRemover = Integer.parseInt(scanner.nextLine());
+        System.out.println("\nDigite o id do paciente que deseja remover:");
+        int idRemover = readInt();
         RepositorioPaciente.remover(idRemover);
+    }
+
+    private static int readInt() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, insira um número inteiro válido.");
+            }
+        }
+    }
+
+    private static double readDouble() {
+        while (true) {
+            try {
+                return Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, insira um número válido.");
+            }
+        }
     }
 }
